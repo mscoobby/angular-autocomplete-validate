@@ -134,7 +134,7 @@ angular.module("ngAutocompleteValidate", [])
                     if (!a) return false;
 
                     if (scope.options && scope.options.types) {
-                        if (scope.options.types == "['(cities)']") {
+                        if (scope.options.types.indexOf('(cities)') > -1) {
                             if (a.city && a.country) valid = true
                         } else {
                             if (a.city &&
