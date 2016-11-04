@@ -39,7 +39,16 @@ angular.module("ngAutocompleteValidate", [])
 
                 if (scope.gPlace == undefined) {
                     scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
-                    scope.gPlace.setTypes(['address'])
+                    if (scope.options) {
+                        if (scope.options.types) {
+                            let types = []
+                            types.push(scope.options.types)
+                            scope.gPlace.setTypes(types)
+                        } else {
+                            scope.gPlace.setTypes(['address'])
+                        }
+
+                    }
                 }
 
                 google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
@@ -123,6 +132,20 @@ angular.module("ngAutocompleteValidate", [])
                 function checkFields(a, b) {
                     var valid = false
                     if (!a) return false;
+
+                    if (scope.options && scope.options.types) {
+                        if (scope.options.types.indexOf('(cities)') > -1) {
+                            if (a.city && a.country) valid = true
+                        } else {
+                            if (a.city &&
+                                a.country &&
+                                a.street &&
+                                b.street_number) {
+                                valid = true;
+                            }
+                        }
+                    }
+
                     if (a.city &&
                         a.country &&
                         a.street &&
