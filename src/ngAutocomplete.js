@@ -132,14 +132,12 @@ angular.module("ngAutocompleteValidate", [])
                 function checkFields(a, b) {
                     var valid = false
                     if (!a) return false;
-                        if (!scope.options || scope.options.validation || scope.options.validation == undefined) {
-                            valid = (a.city &&
-                            a.country &&
-                            a.street &&
-                            b.street_number)
-                        } else {
+                    if (!scope.options || scope.options.validation || scope.options.validation == undefined) {
+                        if (a.city && a.country && a.street && b.street_number)
                             valid = true
-                        }
+                    } else {
+                        valid = true
+                    }
 
                     return valid;
                 }
