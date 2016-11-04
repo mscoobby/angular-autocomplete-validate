@@ -133,25 +133,18 @@ angular.module("ngAutocompleteValidate", [])
                     var valid = false
                     if (!a) return false;
 
-                    if (scope.options && scope.options.types) {
-                        if (scope.options.types.indexOf('(cities)') > -1) {
-                            if (a.city && a.country) valid = true
-                        } else {
-                            if (a.city &&
-                                a.country &&
-                                a.street &&
-                                b.street_number) {
-                                valid = true;
-                            }
+                    if (scope.options && !scope.options.validation) {
+                        valid = true
+                    } else {
+                        if (a.city &&
+                            a.country &&
+                            a.street &&
+                            b.street_number) {
+                            valid = true;
                         }
                     }
 
-                    if (a.city &&
-                        a.country &&
-                        a.street &&
-                        b.street_number) {
-                        valid = true;
-                    }
+
                     return valid;
                 }
 
